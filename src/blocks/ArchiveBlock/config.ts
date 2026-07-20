@@ -56,16 +56,16 @@ export const Archive: Block = {
         },
       ],
     },
-    {
-      name: 'categories',
-      type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
-      },
-      hasMany: true,
-      label: 'Categories To Show',
-      relationTo: 'categories',
-    },
+    // {
+    //   name: 'categories',
+    //   type: 'relationship',
+    //   admin: {
+    //     condition: (_, siblingData) => siblingData.populateBy === 'collection',
+    //   },
+    //   hasMany: true,
+    //   label: 'Categories To Show',
+    //   relationTo: 'categories',
+    // },
     {
       name: 'limit',
       type: 'number',
@@ -76,16 +76,16 @@ export const Archive: Block = {
       defaultValue: 10,
       label: 'Limit',
     },
-    {
-      name: 'selectedDocs',
-      type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'selection',
-      },
-      hasMany: true,
-      label: 'Selection',
-      relationTo: ['posts'],
-    },
+    // {
+    //   name: 'selectedDocs',
+    //   type: 'relationship',
+    //   admin: {
+    //     condition: (_, siblingData) => siblingData.populateBy === 'selection',
+    //   },
+    //   hasMany: true,
+    //   label: 'Selection',
+    //   relationTo: ['posts'],
+    // },
   ],
   labels: {
     plural: 'Archives',
