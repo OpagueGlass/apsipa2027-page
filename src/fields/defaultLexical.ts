@@ -6,17 +6,26 @@ import {
   ParagraphFeature,
   lexicalEditor,
   UnderlineFeature,
-  EXPERIMENTAL_TableFeature,
   type LinkFields,
+  SubscriptFeature,
+  SuperscriptFeature,
+  StrikethroughFeature,
+  AlignFeature,
 } from '@payloadcms/richtext-lexical'
 
 export const defaultLexical = lexicalEditor({
-  features: ({ defaultFeatures }) => [
-    ...defaultFeatures,
+  admin: {
+    hideGutter: true,
+  },
+  features: [
+    AlignFeature(),
     ParagraphFeature(),
     UnderlineFeature(),
     BoldFeature(),
     ItalicFeature(),
+    SubscriptFeature(),
+    SuperscriptFeature(),
+    StrikethroughFeature(),
     LinkFeature({
       // enabledCollections: ['pages', 'posts'],
       enabledCollections: ['pages'],
@@ -45,7 +54,6 @@ export const defaultLexical = lexicalEditor({
           },
         ]
       },
-    }),
-    EXPERIMENTAL_TableFeature()
+    })
   ],
 })

@@ -5,9 +5,26 @@ import {
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  InlineCodeFeature,
+  ParagraphFeature,
+  IndentFeature,
+  UnorderedListFeature,
+  OrderedListFeature,
+  ChecklistFeature,
+  RelationshipFeature,
+  BlockquoteFeature,
+  UploadFeature,
+  HorizontalRuleFeature,
+  BlocksFeature,
+  EXPERIMENTAL_TableFeature,
+
 } from '@payloadcms/richtext-lexical'
 
 import { link } from '@/fields/link'
+import { Banner } from '../Banner/config'
+import { MediaBlock } from '../MediaBlock/config'
+import { Code } from '../Code/config'
+import { GalleryBlock } from '../Gallery/config'
 
 const columnFields: Field[] = [
   {
@@ -41,6 +58,18 @@ const columnFields: Field[] = [
         return [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+          InlineCodeFeature(),
+          ParagraphFeature(),
+          IndentFeature(),
+          UnorderedListFeature(),
+          OrderedListFeature(),
+          ChecklistFeature(),
+          RelationshipFeature(),
+          BlockquoteFeature(),
+          UploadFeature(),
+          HorizontalRuleFeature(),
+          BlocksFeature({ blocks: [Banner, Code, MediaBlock, GalleryBlock] }),
+          EXPERIMENTAL_TableFeature(),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
         ]
