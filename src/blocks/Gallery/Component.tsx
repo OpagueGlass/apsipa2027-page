@@ -1,40 +1,37 @@
-import type { StaticImageData } from 'next/image'
-
+import { Media } from '@/components/Media'
+import RichText from '@/components/RichText'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import React from 'react'
-import RichText from '@/components/RichText'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Media } from '@/components/Media'
 
-import type { Gallery as GalleryBlockProps } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
+import type { Gallery as GalleryBlockProps } from '@/payload-types'
 
-export const GalleryBlock: React.FC<GalleryBlockProps> = (props) => {
-  const { title, columns, items } = props
+type Props = GalleryBlockProps & {
+  className?: string
+  enableGutter?: boolean
+}
+
+export const GalleryBlock: React.FC<Props> = (props) => {
+  const { title, columns, items, className, enableGutter = true } = props
 
   const colsClasses = {
-    one: "grid-cols-1",
-    two: "grid-cols-1 md:grid-cols-2",
-    three: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+    one: 'grid-cols-1',
+    two: 'grid-cols-1 md:grid-cols-2',
+    three: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
   }
 
   return (
-    <div className="container">
+    <div
+      className={cn(
+        {
+          container: enableGutter,
+        },
+        className,
+      )}
+    >
       {title && <RichText data={title} enableGutter={false} className="mb-8" />}
-      <div
-        className={cn(
-          'grid gap-4',
-          colsClasses[columns || 'three'],
-        )}
-      >
+      <div className={cn('grid gap-4', colsClasses[columns || 'three'])}>
         {items &&
           items.map((item, index) => {
             const { media, content, links } = item

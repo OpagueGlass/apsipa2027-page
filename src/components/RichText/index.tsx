@@ -17,12 +17,16 @@ import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
+  Gallery as GalleryProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
 import { Geist, Geist_Mono, Inter } from 'next/font/google'
-import { jsx } from 'react/jsx-runtime'
+import { JSX, jsx } from 'react/jsx-runtime'
+import { GalleryBlock } from '@/blocks/Gallery/Component'
+import type { SerializedHeadingNode } from '@payloadcms/richtext-lexical'
+import { ReactNode } from 'react'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -33,7 +37,9 @@ const fontMono = Geist_Mono({
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<
+      CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps | GalleryProps
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -61,6 +67,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    gallery: ({ node }) => <GalleryBlock {...node.fields} enableGutter={false} />,
   },
 })
 
@@ -72,7 +79,12 @@ const heroJsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters
       const text = nodesToJSX({ nodes: node.children })
       return <h1 className="tracking-tight font-bold">{text}</h1>
     }
-    return defaultConverters?.heading?.({ node, nodesToJSX })
+    return (
+      defaultConverters?.heading as (args: {
+        node: typeof node
+        nodesToJSX: typeof nodesToJSX
+      }) => ReactNode
+    )({ node, nodesToJSX })
   },
 })
 
