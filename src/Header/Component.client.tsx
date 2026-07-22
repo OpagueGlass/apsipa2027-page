@@ -29,7 +29,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
   return (
-    <header className="sticky top-0 z-50  backdrop-blur-md supports-[backdrop-filter]:bg-background/80" {...(theme ? { 'data-theme': theme } : {})}>
+    <header className="sticky top-0 z-50 border-b backdrop-blur-md supports-[backdrop-filter]:bg-background/80" {...(theme ? { 'data-theme': theme } : {})}>
       <div className="min-h-[76px] w-full container flex justify-between items-center">
         <Link href="/">
           <span className="font-bold text-xl text-primary">APSIPA</span>

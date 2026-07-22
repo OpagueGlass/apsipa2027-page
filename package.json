@@ -22,7 +22,9 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@payloadcms/admin-bar": "3.86.0",
+    "@payloadcms/db-postgres": "3.86.0",
     "@payloadcms/live-preview-react": "3.86.0",
     "@payloadcms/next": "3.86.0",
     "@payloadcms/plugin-form-builder": "3.86.0",
@@ -50,9 +52,9 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-hook-form": "7.71.1",
+    "shadcn": "^4.13.1",
     "sharp": "0.34.2",
-    "tailwind-merge": "^3.4.0",
-    "@payloadcms/db-postgres": "3.86.0"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

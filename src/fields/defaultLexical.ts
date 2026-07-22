@@ -6,6 +6,7 @@ import {
   ParagraphFeature,
   lexicalEditor,
   UnderlineFeature,
+  EXPERIMENTAL_TableFeature,
   type LinkFields,
 } from '@payloadcms/richtext-lexical'
 
@@ -45,5 +46,6 @@ export const defaultLexical = lexicalEditor({
         ]
       },
     }),
+    EXPERIMENTAL_TableFeature()
   ],
 })

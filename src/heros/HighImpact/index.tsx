@@ -24,7 +24,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
               {links.map(({ link }, i) => {
                 return (
                   <li key={i}>
-                    <CMSLink {...link} className="px-10" />
+                    <CMSLink {...link} size="lg" className="px-2" />
                   </li>
                 )
               })}
