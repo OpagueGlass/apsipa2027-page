@@ -21,6 +21,15 @@ import type {
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
+import { Geist, Geist_Mono, Inter } from 'next/font/google'
+import { jsx } from 'react/jsx-runtime'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
+
+const fontMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+})
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -55,11 +64,44 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   },
 })
 
+const heroJsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
+  ...defaultConverters,
+  ...jsxConverters({ defaultConverters }),
+  heading: ({ node, nodesToJSX }) => {
+    if (node.tag === 'h1') {
+      const text = nodesToJSX({ nodes: node.children })
+      return <h1 className="tracking-tight font-bold">{text}</h1>
+    }
+    return defaultConverters?.heading?.({ node, nodesToJSX })
+  },
+})
+
 type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
   enableProse?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
+
+export function HeroRichText(props: Props) {
+  const { className, enableProse = true, enableGutter = false, ...rest } = props
+  return (
+    <ConvertRichText
+      converters={heroJsxConverters}
+      className={cn(
+        'font-sans',
+        fontMono.variable,
+        inter.variable,
+        {
+          container: enableGutter,
+          'max-w-none': !enableGutter,
+          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+        },
+        className,
+      )}
+      {...rest}
+    />
+  )
+}
 
 export default function RichText(props: Props) {
   const { className, enableProse = true, enableGutter = true, ...rest } = props
