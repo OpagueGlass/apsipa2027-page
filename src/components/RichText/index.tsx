@@ -22,24 +22,25 @@ import type {
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
-import { Geist, Geist_Mono, Inter } from 'next/font/google'
+import { Inter, Libre_Baskerville, Montserrat } from 'next/font/google'
 import { JSX, jsx } from 'react/jsx-runtime'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import type { SerializedHeadingNode } from '@payloadcms/richtext-lexical'
 import { ReactNode } from 'react'
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
-
-const fontMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-})
 
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<
       CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps | GalleryProps
     >
+
+const libreBaskerville = Libre_Baskerville({
+  subsets: ['latin'],
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+})
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -53,6 +54,13 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  heading: ({ node, nodesToJSX }) => {
+    return (
+      <node.tag className={cn(montserrat.className)}>
+        {nodesToJSX({ nodes: node.children })}
+      </node.tag>
+    )
+  },
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
     mediaBlock: ({ node }) => (
@@ -92,6 +100,7 @@ type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
   enableProse?: boolean
+  sans?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
 
 export function HeroRichText(props: Props) {
@@ -100,9 +109,7 @@ export function HeroRichText(props: Props) {
     <ConvertRichText
       converters={heroJsxConverters}
       className={cn(
-        'font-sans',
-        fontMono.variable,
-        inter.variable,
+        montserrat.className,
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
@@ -116,12 +123,12 @@ export function HeroRichText(props: Props) {
 }
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props
+  const { className, enableProse = true, enableGutter = true, sans=false, ...rest } = props
   return (
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        'payload-richtext',
+        sans ? montserrat.className : libreBaskerville.className,
         {
           container: enableGutter,
           'max-w-none': !enableGutter,

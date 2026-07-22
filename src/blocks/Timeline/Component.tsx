@@ -48,7 +48,7 @@ export const Timeline: React.FC<TimelineProps> = (props) => {
                         year: 'numeric',
                       })}
                     </div>
-                    <RichText data={item.event} enableGutter={false} />
+                    <RichText data={item.event} sans enableGutter={false} />
                   </div>
                 </div>
               ))}
