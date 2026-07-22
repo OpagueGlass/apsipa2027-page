@@ -6,26 +6,24 @@ import {
   type DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
 import {
+  RichText as ConvertRichText,
   JSXConvertersFunction,
   LinkJSXConverter,
-  RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 
+import { BannerBlock } from '@/blocks/Banner/Component'
+import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { GalleryBlock } from '@/blocks/Gallery/Component'
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
-  MediaBlock as MediaBlockProps,
   Gallery as GalleryProps,
+  MediaBlock as MediaBlockProps,
 } from '@/payload-types'
-import { BannerBlock } from '@/blocks/Banner/Component'
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
-import { Inter, Libre_Baskerville, Montserrat } from 'next/font/google'
-import { JSX, jsx } from 'react/jsx-runtime'
-import { GalleryBlock } from '@/blocks/Gallery/Component'
-import type { SerializedHeadingNode } from '@payloadcms/richtext-lexical'
+import { Libre_Baskerville, Montserrat } from 'next/font/google'
 import { ReactNode } from 'react'
 
 type NodeTypes =
@@ -123,7 +121,7 @@ export function HeroRichText(props: Props) {
 }
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, sans=false, ...rest } = props
+  const { className, enableProse = true, enableGutter = true, sans = false, ...rest } = props
   return (
     <ConvertRichText
       converters={jsxConverters}

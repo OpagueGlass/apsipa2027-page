@@ -6,12 +6,17 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
 
-import { Logo } from '@/components/Logo/Logo'
+import { cn } from '@/utilities/ui'
+import { Montserrat } from 'next/font/google'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
   data: Header
 }
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+})
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   /* Storing the value in a useState to avoid hydration errors */
@@ -29,10 +34,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
   return (
-    <header className="sticky top-0 z-50 border-b backdrop-blur-md supports-[backdrop-filter]:bg-background/80" {...(theme ? { 'data-theme': theme } : {})}>
+    <header
+      className="sticky top-0 z-50 border-b backdrop-blur-md supports-[backdrop-filter]:bg-background/80"
+      {...(theme ? { 'data-theme': theme } : {})}
+    >
       <div className="min-h-[76px] w-full container flex justify-between items-center">
         <Link href="/">
-          <span className="font-bold text-xl text-primary">APSIPA</span>
+          <span className={cn('font-bold text-xl text-primary', montserrat.className)}>APSIPA</span>
         </Link>
         <HeaderNav data={data} />
       </div>
