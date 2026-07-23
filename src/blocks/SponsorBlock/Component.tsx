@@ -60,8 +60,8 @@ const tierConfig = {
     logoSize: 'h-12',
     gridCols: 'grid-cols-2 md:grid-cols-4 lg:grid-cols-6',
     cellPadding: 'p-[16px]',
-    cellMaxHeight: 'h-[120px]',
-    maxImageWidth: "max-w-[100px]",
+    cellMaxHeight: 'h-[140px]',
+    maxImageWidth: "max-w-full",
   },
 }
 
