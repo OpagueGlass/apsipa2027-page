@@ -190,7 +190,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -727,6 +727,84 @@ export interface Timeline {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Sponsor Block".
+ */
+export interface SponsorBlock {
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  goldSponsors?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  silverSponsors?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  bronzeSponsors?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sponsor';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -1012,6 +1090,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         gallery?: T | GallerySelect<T>;
         timeline?: T | TimelineSelect<T>;
+        sponsor?: T | SponsorBlockSelect<T>;
       };
   meta?:
     | T
@@ -1144,6 +1223,66 @@ export interface TimelineSelect<T extends boolean = true> {
       };
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Sponsor Block_select".
+ */
+export interface SponsorBlockSelect {
+  title?: boolean;
+  goldSponsors?:
+    | boolean
+    | {
+        name?: boolean;
+        logo?: boolean;
+        enableLink?: boolean;
+        link?:
+          | boolean
+          | {
+              type?: boolean;
+              newTab?: boolean;
+              reference?: boolean;
+              url?: boolean;
+              label?: boolean;
+            };
+        id?: boolean;
+      };
+  silverSponsors?:
+    | boolean
+    | {
+        name?: boolean;
+        logo?: boolean;
+        enableLink?: boolean;
+        link?:
+          | boolean
+          | {
+              type?: boolean;
+              newTab?: boolean;
+              reference?: boolean;
+              url?: boolean;
+              label?: boolean;
+            };
+        id?: boolean;
+      };
+  bronzeSponsors?:
+    | boolean
+    | {
+        name?: boolean;
+        logo?: boolean;
+        enableLink?: boolean;
+        link?:
+          | boolean
+          | {
+              type?: boolean;
+              newTab?: boolean;
+              reference?: boolean;
+              url?: boolean;
+              label?: boolean;
+            };
+        id?: boolean;
+      };
+  id?: boolean;
+  blockName?: boolean;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

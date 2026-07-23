@@ -18,7 +18,7 @@ export const GalleryBlock: React.FC<Props> = (props) => {
   const colsClasses = {
     one: 'grid-cols-1',
     two: 'grid-cols-1 md:grid-cols-2',
-    three: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    three: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`,
   }
 
   return (
@@ -35,22 +35,21 @@ export const GalleryBlock: React.FC<Props> = (props) => {
         {items &&
           items.map((item, index) => {
             const { media, content, links } = item
-            if (!content) return null
-
+  
             return (
-              <Card key={index} className="pt-0">
+              <Card key={index} className={cn("pt-0", media && 'mx-auto')}>
                 <CardContent className="px-0">
                   {media && (
                     <Media
-                      imgClassName={cn('aspect-video h-70 rounded-t-xl object-cover')}
+                      imgClassName={cn('aspect-video h-80 object-cover min-w-56')}
                       resource={media}
+                      pictureClassName={cn('m-0')}
                     />
                   )}
                 </CardContent>
                 <CardHeader>
-                  <RichText data={content} enableGutter={false} sans className="flex w-full" />
+                  <RichText data={content} enableGutter={false} sans className="w-full" />
                 </CardHeader>
-
                 {Array.isArray(links) && links.length > 0 && (
                   <CardFooter className="gap-3 max-sm:flex-col max-sm:items-stretch">
                     {links.map(({ link }, i) => {

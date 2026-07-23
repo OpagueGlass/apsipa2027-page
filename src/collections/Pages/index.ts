@@ -7,6 +7,7 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { SponsorBlock } from '../../blocks/SponsorBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -74,7 +75,8 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, FormBlock, GalleryBlock, TimelineBlock],
+              // Edit Block Types here to add new blocks to the admin page block options
+              blocks: [CallToAction, Content, MediaBlock, FormBlock, GalleryBlock, TimelineBlock, SponsorBlock],
               required: true,
               admin: {
                 initCollapsed: true,

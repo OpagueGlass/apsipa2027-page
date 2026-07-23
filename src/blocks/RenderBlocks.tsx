@@ -8,13 +8,16 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
+import { SponsorBlock } from '@/blocks/SponsorBlock/Component'
 import { Timeline } from './Timeline/Component'
 
+// Edit Block Components here to add new blocks to the page builder
 const blockComponents = {
   // archive: ArchiveBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
+  sponsor: SponsorBlock,
   mediaBlock: MediaBlock,
   gallery: GalleryBlock,
   timeline: Timeline,
