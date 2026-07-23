@@ -176,7 +176,7 @@ export const SponsorBlock: React.FC<SponsorBlockProps> = (props) => {
 
   return (
     <div className="container">
-      {title && <RichText data={title} enableGutter={false} sans className="mb-8" />}
+      {title && <RichText data={title} enableGutter={false} className="mb-8" />}
       <div className="space-y-6">
       <SponsorTier tier="gold" sponsors={goldSponsors} />
       <SponsorTier tier="silver" sponsors={silverSponsors} />

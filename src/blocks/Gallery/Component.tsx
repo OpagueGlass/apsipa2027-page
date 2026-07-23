@@ -48,7 +48,7 @@ export const GalleryBlock: React.FC<Props> = (props) => {
                   )}
                 </CardContent>
                 <CardHeader>
-                  <RichText data={content} enableGutter={false} sans className="w-full" />
+                  <RichText data={content} enableGutter={false} className="w-full" />
                 </CardHeader>
                 {Array.isArray(links) && links.length > 0 && (
                   <CardFooter className="gap-3 max-sm:flex-col max-sm:items-stretch">

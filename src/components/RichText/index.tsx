@@ -98,7 +98,7 @@ type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
   enableProse?: boolean
-  sans?: boolean
+  serif?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
 
 export function HeroRichText(props: Props) {
@@ -121,12 +121,12 @@ export function HeroRichText(props: Props) {
 }
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, sans = false, ...rest } = props
+  const { className, enableProse = true, enableGutter = true, serif = false, ...rest } = props
   return (
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        sans ? montserrat.className : libreBaskerville.className,
+        serif ? libreBaskerville.className : montserrat.className,
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
