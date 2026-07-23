@@ -641,7 +641,7 @@ export interface Gallery {
   items?:
     | {
         media?: (number | null) | Media;
-        content: {
+        content?: {
           root: {
             type: string;
             children: {
@@ -655,7 +655,7 @@ export interface Gallery {
             version: number;
           };
           [k: string]: unknown;
-        };
+        } | null;
         links?:
           | {
               link: {

@@ -27,7 +27,6 @@ const itemFields: Field[] = [
         ]
       },
     }),
-    required: true,
   },
   linkGroup({
     overrides: {
