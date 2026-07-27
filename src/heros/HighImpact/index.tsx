@@ -5,7 +5,7 @@ import type { Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { HeroRichText } from '@/components/RichText'
+import { HighImpactHeroRichText } from '@/components/RichText'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   return (
@@ -13,7 +13,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       <div className="container mb-8 relative flex justify-start items-center">
         <div className="max-w-[36.5rem]">
           {richText && (
-            <HeroRichText className="mb-8 text-white" data={richText} enableGutter={false} />
+            <HighImpactHeroRichText
+              className="mb-8 text-white"
+              data={richText}
+              enableGutter={false}
+            />
           )}
           {Array.isArray(links) && links.length > 0 && (
             <ul className="flex gap-4">

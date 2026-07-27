@@ -4,41 +4,36 @@ import type { Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
+import {MediumImpactHeroRichText}from '@/components/RichText'
 
 export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   return (
-    <div className="">
-      <div className="container mb-8">
-        {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
-
-        {Array.isArray(links) && links.length > 0 && (
-          <ul className="flex gap-4">
-            {links.map(({ link }, i) => {
-              return (
-                <li key={i}>
-                  <CMSLink {...link} />
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </div>
-      <div className="container ">
-        {media && typeof media === 'object' && (
-          <div>
-            <Media
-              className="-mx-4 md:-mx-8 2xl:-mx-16"
-              imgClassName=""
-              priority
-              resource={media}
+    <div className="relative flex -mt-[4rem]">
+      <div className="container mb-8 relative flex justify-start items-center">
+        <div className="max-w-[36.5rem] mt-6">
+          {richText && (
+            <MediumImpactHeroRichText
+              className="mb-6 text-white prose-headings:my-2 prose-headings:font-normal"
+              data={richText}
+              enableGutter={false}
             />
-            {media?.caption && (
-              <div className="mt-3">
-                <RichText data={media.caption} enableGutter={false} />
-              </div>
-            )}
-          </div>
+          )}
+          {Array.isArray(links) && links.length > 0 && (
+            <ul className="flex gap-4">
+              {links.map(({ link }, i) => {
+                return (
+                  <li key={i}>
+                    <CMSLink {...link} size="lg" className="px-2" />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </div>
+      </div>
+      <div className="min-h-[30vh] select-none">
+        {media && typeof media === 'object' && (
+          <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
         )}
       </div>
     </div>

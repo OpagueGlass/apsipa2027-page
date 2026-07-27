@@ -77,13 +77,13 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   },
 })
 
-const heroJsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
+const highImpactHeroJsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...jsxConverters({ defaultConverters }),
   heading: ({ node, nodesToJSX }) => {
     if (node.tag === 'h1') {
       const text = nodesToJSX({ nodes: node.children })
-      return <h1 className="tracking-tight font-bold">{text}</h1>
+      return <h1 className="font-bold tracking-tight">{text}</h1>
     }
     return (
       defaultConverters?.heading as (args: {
@@ -101,24 +101,29 @@ type Props = {
   serif?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
 
-export function HeroRichText(props: Props) {
-  const { className, enableProse = true, enableGutter = false, ...rest } = props
-  return (
-    <ConvertRichText
-      converters={heroJsxConverters}
-      className={cn(
-        montserrat.className,
-        {
-          container: enableGutter,
-          'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
-        },
-        className,
-      )}
-      {...rest}
-    />
-  )
+function HeroRichTextConverter(converters: JSXConvertersFunction<NodeTypes>) {
+  return (props: Props) => {
+    const { className, enableProse = true, enableGutter = false, ...rest } = props
+    return (
+      <ConvertRichText
+        converters={converters}
+        className={cn(
+          montserrat.className,
+          {
+            container: enableGutter,
+            'max-w-none': !enableGutter,
+            'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+          },
+          className,
+        )}
+        {...rest}
+      />
+    )
+  }
 }
+
+export const MediumImpactHeroRichText = HeroRichTextConverter(jsxConverters)
+export const HighImpactHeroRichText = HeroRichTextConverter(highImpactHeroJsxConverters)
 
 export default function RichText(props: Props) {
   const { className, enableProse = true, enableGutter = true, serif = false, ...rest } = props
