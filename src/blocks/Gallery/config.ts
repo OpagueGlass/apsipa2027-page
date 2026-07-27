@@ -1,11 +1,12 @@
-import type { Block, Field } from 'payload'
 import {
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import type { Block, Field } from 'payload'
 
+import { link } from '@/fields/link'
 import { linkGroup } from '@/fields/linkGroup'
 
 const itemFields: Field[] = [
@@ -72,6 +73,20 @@ export const GalleryBlock: Block = {
         },
       ],
     },
+    {
+      name: 'enableLink',
+      type: 'checkbox',
+      admin: {
+        condition: (_data, siblingData) => Boolean(siblingData?.title),
+      },
+    },
+    link({
+      overrides: {
+        admin: {
+          condition: (_data, siblingData) => Boolean(siblingData?.enableLink),
+        },
+      },
+    }),
     {
       name: 'items',
       type: 'array',

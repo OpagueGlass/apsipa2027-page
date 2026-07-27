@@ -6,6 +6,7 @@ import React from 'react'
 
 import { CMSLink } from '@/components/Link'
 import type { Gallery as GalleryBlockProps } from '@/payload-types'
+import { ArrowRight } from 'lucide-react'
 
 type Props = GalleryBlockProps & {
   className?: string
@@ -13,7 +14,7 @@ type Props = GalleryBlockProps & {
 }
 
 export const GalleryBlock: React.FC<Props> = (props) => {
-  const { title, columns, items, className, enableGutter = true } = props
+  const { title, columns, enableLink, link, items, className, enableGutter = true } = props
 
   const colsClasses = {
     one: 'grid-cols-1',
@@ -30,7 +31,14 @@ export const GalleryBlock: React.FC<Props> = (props) => {
         className,
       )}
     >
-      {title && <RichText data={title} enableGutter={false} className="mb-8" />}
+      {title && (
+        <div className="mb-8 justify-between flex items-center">
+          <RichText data={title} enableGutter={false} className="w-full" />
+          {link && <CMSLink {...link} className="flex items-center px-2" size="lg">
+            <ArrowRight className="ml-2 h-4 w-4" />
+            </CMSLink>}
+        </div>
+      )}
       <div className={cn('grid gap-4', colsClasses[columns || 'three'])}>
         {items &&
           items.map((item, index) => {

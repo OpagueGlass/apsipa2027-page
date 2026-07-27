@@ -638,6 +638,21 @@ export interface Gallery {
     [k: string]: unknown;
   } | null;
   columns?: ('one' | 'two' | 'three') | null;
+  enableLink?: boolean | null;
+  link?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline') | null;
+  };
   items?:
     | {
         media?: (number | null) | Media;
@@ -1186,6 +1201,17 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface GallerySelect<T extends boolean = true> {
   title?: T;
   columns?: T;
+  enableLink?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
   items?:
     | T
     | {
