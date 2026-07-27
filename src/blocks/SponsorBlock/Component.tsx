@@ -1,13 +1,15 @@
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 
-import type {  SponsorBlock as SponsorBlockProps } from '@/payload-types'
+import type { SponsorBlock as SponsorBlockProps } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 
-
-type Sponsors = SponsorBlockProps['goldSponsors'] | SponsorBlockProps['silverSponsors'] | SponsorBlockProps['bronzeSponsors']
+type Sponsors =
+  | SponsorBlockProps['goldSponsors']
+  | SponsorBlockProps['silverSponsors']
+  | SponsorBlockProps['bronzeSponsors']
 
 type Sponsor = NonNullable<Sponsors>[number]
 
@@ -27,7 +29,7 @@ const tierConfig = {
     gridCols: 'grid-cols-1 lg:grid-cols-2',
     cellPadding: 'p-[48px]',
     cellMaxHeight: 'h-[220px]',
-    maxImageWidth: "max-w-full",
+    maxImageWidth: 'max-w-full',
   },
   silver: {
     label: 'Silver',
@@ -44,7 +46,7 @@ const tierConfig = {
     gridCols: 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4',
     cellPadding: 'p-[24px]',
     cellMaxHeight: 'h-[180px]',
-    maxImageWidth: "max-w-full",
+    maxImageWidth: 'max-w-full',
   },
   bronze: {
     label: 'Bronze',
@@ -61,7 +63,7 @@ const tierConfig = {
     gridCols: 'grid-cols-2 md:grid-cols-4 lg:grid-cols-6',
     cellPadding: 'p-[16px]',
     cellMaxHeight: 'h-[140px]',
-    maxImageWidth: "max-w-full",
+    maxImageWidth: 'max-w-full',
   },
 }
 
@@ -69,13 +71,20 @@ function SponsorCell({
   sponsor,
   padding,
   maxHeight,
-  maxImageWidth
+  maxImageWidth,
 }: {
   sponsor: Sponsor
   padding: string
   maxHeight: string
   maxImageWidth: string
 }) {
+  const wrapOutline = (child: React.ReactNode) => {
+    return (
+      <div className="flex items-center justify-center border-r border-b border-border">
+        {child}
+      </div>
+    )
+  }
 
   const content = (
     <div className={cn('w-full flex items-center justify-center', padding, maxHeight)}>
@@ -96,23 +105,15 @@ function SponsorCell({
     </div>
   )
 
-  // if (sponsor.link) {
-  //   return (
-  //     <CMSLink
-  //       {...sponsor.link}
-  //       newTab={true}
-  //       appearance="inline"
-  //     >
-  //       {content}
-  //     </CMSLink>
-  //   )
-  // }
-
-  return (
-    <div className="flex items-center justify-center border-r border-b border-border">
+  const linkContent = sponsor.enableLink && sponsor.link ? (
+    <CMSLink {...sponsor.link} label={null}>
       {content}
-    </div>
+    </CMSLink>
+  ) : (
+    content
   )
+
+  return wrapOutline(linkContent)
 }
 
 function SponsorTier({
@@ -154,22 +155,22 @@ function SponsorTier({
         {/* Sponsor grid */}
         <div className="items-stretch justify-center -mr-px -mb-px">
           <div className={cn('grid', config.gridCols, 'divide-x divide-y ')}>
-            {sponsors && sponsors.map((sponsor, index) => (
-              <SponsorCell
-                key={index}
-                sponsor={sponsor}
-                padding={config.cellPadding}
-                maxHeight={config.cellMaxHeight}
-                maxImageWidth={config.maxImageWidth}
-              />
-            ))}
+            {sponsors &&
+              sponsors.map((sponsor, index) => (
+                <SponsorCell
+                  key={index}
+                  sponsor={sponsor}
+                  padding={config.cellPadding}
+                  maxHeight={config.cellMaxHeight}
+                  maxImageWidth={config.maxImageWidth}
+                />
+              ))}
           </div>
         </div>
       </div>
     </div>
   )
 }
-
 
 export const SponsorBlock: React.FC<SponsorBlockProps> = (props) => {
   const { goldSponsors, silverSponsors, bronzeSponsors, title } = props
@@ -178,9 +179,9 @@ export const SponsorBlock: React.FC<SponsorBlockProps> = (props) => {
     <div className="container">
       {title && <RichText data={title} enableGutter={false} className="mb-8" />}
       <div className="space-y-6">
-      <SponsorTier tier="gold" sponsors={goldSponsors} />
-      <SponsorTier tier="silver" sponsors={silverSponsors} />
-      <SponsorTier tier="bronze" sponsors={bronzeSponsors} />
+        <SponsorTier tier="gold" sponsors={goldSponsors} />
+        <SponsorTier tier="silver" sponsors={silverSponsors} />
+        <SponsorTier tier="bronze" sponsors={bronzeSponsors} />
       </div>
     </div>
   )

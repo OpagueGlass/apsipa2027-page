@@ -34,7 +34,7 @@ export const GalleryBlock: React.FC<Props> = (props) => {
       {title && (
         <div className="mb-8 justify-between flex items-center">
           <RichText data={title} enableGutter={false} className="w-full" />
-          {link && <CMSLink {...link} className="flex items-center px-2" size="lg">
+          {enableLink && link && <CMSLink {...link} className="flex items-center px-2" size="lg">
             <ArrowRight className="ml-2 h-4 w-4" />
             </CMSLink>}
         </div>
