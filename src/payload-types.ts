@@ -702,9 +702,12 @@ export interface Timeline {
     };
     [k: string]: unknown;
   } | null;
+  displayTime: 'datetime' | 'date' | 'time';
+  '24HourFormat'?: boolean | null;
   items: {
     date: string;
-    event: {
+    label?: string | null;
+    description: {
       root: {
         type: string;
         children: {
@@ -1214,11 +1217,14 @@ export interface GallerySelect<T extends boolean = true> {
  */
 export interface TimelineSelect<T extends boolean = true> {
   title?: T;
+  displayTime?: T;
+  '24HourFormat'?: T;
   items?:
     | T
     | {
         date?: T;
-        event?: T;
+        label?: T;
+        description?: T;
         id?: T;
       };
   id?: T;
