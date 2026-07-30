@@ -132,9 +132,9 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   if (hasBlocks) {
     return (
       <>
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center lg:flex ">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="gap-1">
               {navigationBlocks.map(renderBlock(navigationBlockComponents))}
             </NavigationMenuList>
           </NavigationMenu>
