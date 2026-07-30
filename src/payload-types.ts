@@ -1736,7 +1736,33 @@ export interface Header {
  */
 export interface Footer {
   id: number;
-  navItems?:
+  information?: {
+    description?: string | null;
+    email?: string | null;
+    venue?: string | null;
+  };
+  footerItems?:
+    | {
+        groupName: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  legalPolicies?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1808,7 +1834,34 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  information?:
+    | T
+    | {
+        description?: T;
+        email?: T;
+        venue?: T;
+      };
+  footerItems?:
+    | T
+    | {
+        groupName?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  legalPolicies?:
     | T
     | {
         link?:

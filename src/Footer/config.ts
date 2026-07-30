@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
+import { linkGroup } from '@/fields/linkGroup'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
 export const Footer: GlobalConfig = {
@@ -10,21 +10,47 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'navItems',
+      name: 'information',
+      type: 'group',
+      fields: [
+        {
+          name: 'description',
+          type: 'textarea',
+        },
+        {
+          name: 'email',
+          type: 'email',
+        },
+        {
+          name: 'venue',
+          type: 'textarea',
+        },
+      ],
+    },
+    {
+      name: 'footerItems',
       type: 'array',
       fields: [
-        link({
+        {
+          name: 'groupName',
+          type: 'text',
+          required: true,
+        },
+        linkGroup({
           appearances: false,
         }),
       ],
-      maxRows: 6,
       admin: {
         initCollapsed: true,
-        components: {
-          RowLabel: '@/Footer/RowLabel#RowLabel',
-        },
       },
     },
+    linkGroup({
+      appearances: false,
+      overrides: {
+        name: 'legalPolicies',
+        maxRows: 2,
+      },
+    }),
   ],
   hooks: {
     afterChange: [revalidateFooter],
