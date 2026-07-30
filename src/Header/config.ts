@@ -38,9 +38,6 @@ export const Header: GlobalConfig = {
       blocks: [NavGroup, NavItem],
       admin: {
         initCollapsed: true,
-        // components: {
-        //   RowLabel: '@/Header/RowLabel#RowLabel',
-        // },
       },
     },
   ],
