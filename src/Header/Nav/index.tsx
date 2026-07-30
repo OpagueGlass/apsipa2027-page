@@ -94,7 +94,7 @@ function NavigationItemBlock({ link }: NavigationItemProps) {
 }
 
 function SheetNavItem({ link, className }: { link: NavigationLinkProps; className?: string }) {
-  return <CMSLink appearance="ghost" {...link} className={cn('w-full text-start', className)} />
+  return <CMSLink appearance="ghost" {...link} className={cn('w-full text-start py-1.5', className)} />
 }
 
 function SheetNavigationGroupBlock({ groupName, links }: NavigationGroupProps) {
@@ -104,16 +104,15 @@ function SheetNavigationGroupBlock({ groupName, links }: NavigationGroupProps) {
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger
         render={
-          <Button variant="ghost" className="w-full">
+          <Button variant="ghost" className="w-full data-panel-open:bg-muted/50 data-panel-open:hover:bg-muted data-panel-open:focus:bg-muted">
             {groupName}
-            <ChevronDownIcon className="ml-auto group-data-panel-open/button:rotate-180" />
+            <ChevronDownIcon className="ml-auto size-3 transition duration-300 group-data-panel-open/button:rotate-180" />
           </Button>
         }
       />
-
-      <CollapsibleContent className="pl-4 mt-2 space-y-2">
+      <CollapsibleContent className="mt-1 space-y-1">
         {links?.map(({ link }, index) => (
-          <SheetNavItem key={index} link={link} />
+          <SheetNavItem key={index} link={link} className="px-2.5" />
         ))}
       </CollapsibleContent>
     </Collapsible>
@@ -145,7 +144,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             <SheetTrigger>
               <Menu className="h-5 w-5 mr-2" />
             </SheetTrigger>
-            <SheetContent className="overflow-y-auto no-scrollbar w-[300px] sm:w-[400px] py-20 px-4">
+            <SheetContent className="overflow-y-auto no-scrollbar w-[300px] sm:w-[400px] pt-20 px-4 gap-2">
               {navigationBlocks.map(renderBlock(sheetBlockComponents))}
             </SheetContent>
           </Sheet>
