@@ -10,6 +10,7 @@ import { HighImpactHeroRichText } from '@/components/RichText'
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   return (
     <div className="relative flex -mt-[4rem]">
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
       <div className="container mb-8 relative flex justify-start items-center">
         <div className="max-w-[36.5rem]">
           {richText && (
@@ -32,7 +33,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           )}
         </div>
       </div>
-      <div className="min-h-[60vh] select-none">
+      <div className="min-h-[80vh] select-none">
         {media && typeof media === 'object' && (
           <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
         )}
