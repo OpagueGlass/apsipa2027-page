@@ -10,6 +10,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { SponsorBlock } from '@/blocks/SponsorBlock/Component'
 import { Timeline } from './Timeline/Component'
+import { TabBlock } from './TabBlock/Component'
 
 // Edit Block Components here to add new blocks to the page builder
 const blockComponents = {
@@ -21,6 +22,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   gallery: GalleryBlock,
   timeline: Timeline,
+  tabBlock: TabBlock
 }
 
 export const RenderBlocks: React.FC<{

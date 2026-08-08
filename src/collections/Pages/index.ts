@@ -23,6 +23,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { GalleryBlock } from '@/blocks/Gallery/config'
 import { TimelineBlock } from '@/blocks/Timeline/config'
+import { TabBlock } from '@/blocks/TabBlock/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -76,7 +77,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               // Edit Block Types here to add new blocks to the admin page block options
-              blocks: [CallToAction, Content, MediaBlock, FormBlock, GalleryBlock, TimelineBlock, SponsorBlock],
+              blocks: [CallToAction, Content, MediaBlock, FormBlock, GalleryBlock, TimelineBlock, SponsorBlock, TabBlock],
               required: true,
               admin: {
                 initCollapsed: true,

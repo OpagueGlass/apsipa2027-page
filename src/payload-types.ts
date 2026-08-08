@@ -190,7 +190,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock | TabBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -823,6 +823,35 @@ export interface SponsorBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabBlock".
+ */
+export interface TabBlock {
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  tabs: {
+    label: string;
+    layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock)[];
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -1109,6 +1138,7 @@ export interface PagesSelect<T extends boolean = true> {
         gallery?: T | GallerySelect<T>;
         timeline?: T | TimelineSelect<T>;
         sponsor?: T | SponsorBlockSelect<T>;
+        tabBlock?: T | TabBlockSelect<T>;
       };
   meta?:
     | T
@@ -1315,6 +1345,32 @@ export interface SponsorBlockSelect {
       };
   id?: boolean;
   blockName?: boolean;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabBlock_select".
+ */
+export interface TabBlockSelect<T extends boolean = true> {
+  title?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        layout?:
+          | T
+          | {
+              cta?: T | CallToActionBlockSelect<T>;
+              content?: T | ContentBlockSelect<T>;
+              mediaBlock?: T | MediaBlockSelect<T>;
+              formBlock?: T | FormBlockSelect<T>;
+              gallery?: T | GallerySelect<T>;
+              timeline?: T | TimelineSelect<T>;
+              sponsor?: T | SponsorBlockSelect<T>;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
