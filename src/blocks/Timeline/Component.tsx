@@ -2,6 +2,7 @@ import type { Timeline as TimelineProps } from '@/payload-types'
 import RichText from '@/components/RichText'
 import { Check } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import { hasText } from '@payloadcms/richtext-lexical/shared'
 
 export const Timeline: React.FC<TimelineProps> = (props) => {
   const { title, displayTime, items } = props
@@ -48,7 +49,7 @@ export const Timeline: React.FC<TimelineProps> = (props) => {
 
   return (
     <div className="container">
-      {title && <RichText data={title} enableGutter={false} className="mb-8" />}
+      {hasText(title) && <RichText data={title} enableGutter={false} className="mb-8" />}
       <Card>
         <CardContent className="py-4 px-8">
           <div className="relative">

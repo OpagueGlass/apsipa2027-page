@@ -7,6 +7,7 @@ import React from 'react'
 import { CMSLink } from '@/components/Link'
 import type { Gallery as GalleryBlockProps } from '@/payload-types'
 import { ArrowRight } from 'lucide-react'
+import { hasText } from '@payloadcms/richtext-lexical/shared'
 
 type Props = GalleryBlockProps & {
   className?: string
@@ -31,12 +32,14 @@ export const GalleryBlock: React.FC<Props> = (props) => {
         className,
       )}
     >
-      {title && (
+      {hasText(title) && (
         <div className="mb-8 justify-between flex items-center">
           <RichText data={title} enableGutter={false} className="w-full" />
-          {enableLink && link && <CMSLink {...link} className="flex items-center px-2" size="lg">
-            <ArrowRight className="ml-2 h-4 w-4" />
-            </CMSLink>}
+          {enableLink && link && (
+            <CMSLink {...link} className="flex items-center px-2" size="lg">
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </CMSLink>
+          )}
         </div>
       )}
       <div className={cn('grid gap-4', colsClasses[columns || 'three'])}>

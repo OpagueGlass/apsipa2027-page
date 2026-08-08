@@ -5,6 +5,7 @@ import type { SponsorBlock as SponsorBlockProps } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
+import { hasText } from '@payloadcms/richtext-lexical/shared'
 
 type Sponsors =
   | SponsorBlockProps['goldSponsors']
@@ -177,7 +178,7 @@ export const SponsorBlock: React.FC<SponsorBlockProps> = (props) => {
 
   return (
     <div className="container">
-      {title && <RichText data={title} enableGutter={false} className="mb-8" />}
+      {hasText(title) && <RichText data={title} enableGutter={false} className="mb-8" />}
       <div className="space-y-6">
         <SponsorTier tier="gold" sponsors={goldSponsors} />
         <SponsorTier tier="silver" sponsors={silverSponsors} />
