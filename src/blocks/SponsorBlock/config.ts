@@ -34,7 +34,7 @@ const itemFields: Field[] = [
 
 export const SponsorBlock: Block = {
   slug: 'sponsor',
-  interfaceName: 'Sponsor Block',
+  interfaceName: 'SponsorBlock',
   fields: [
     {
       name: 'title',

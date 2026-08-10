@@ -745,7 +745,7 @@ export interface Timeline {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Sponsor Block".
+ * via the `definition` "SponsorBlock".
  */
 export interface SponsorBlock {
   title?: {
@@ -1288,63 +1288,63 @@ export interface TimelineSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Sponsor Block_select".
+ * via the `definition` "SponsorBlock_select".
  */
-export interface SponsorBlockSelect {
-  title?: boolean;
+export interface SponsorBlockSelect<T extends boolean = true> {
+  title?: T;
   goldSponsors?:
-    | boolean
+    | T
     | {
-        name?: boolean;
-        logo?: boolean;
-        enableLink?: boolean;
+        name?: T;
+        logo?: T;
+        enableLink?: T;
         link?:
-          | boolean
+          | T
           | {
-              type?: boolean;
-              newTab?: boolean;
-              reference?: boolean;
-              url?: boolean;
-              label?: boolean;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
             };
-        id?: boolean;
+        id?: T;
       };
   silverSponsors?:
-    | boolean
+    | T
     | {
-        name?: boolean;
-        logo?: boolean;
-        enableLink?: boolean;
+        name?: T;
+        logo?: T;
+        enableLink?: T;
         link?:
-          | boolean
+          | T
           | {
-              type?: boolean;
-              newTab?: boolean;
-              reference?: boolean;
-              url?: boolean;
-              label?: boolean;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
             };
-        id?: boolean;
+        id?: T;
       };
   bronzeSponsors?:
-    | boolean
+    | T
     | {
-        name?: boolean;
-        logo?: boolean;
-        enableLink?: boolean;
+        name?: T;
+        logo?: T;
+        enableLink?: T;
         link?:
-          | boolean
+          | T
           | {
-              type?: boolean;
-              newTab?: boolean;
-              reference?: boolean;
-              url?: boolean;
-              label?: boolean;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
             };
-        id?: boolean;
+        id?: T;
       };
-  id?: boolean;
-  blockName?: boolean;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
