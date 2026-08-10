@@ -18,11 +18,11 @@ export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
   const [value, setValue] = useState('')
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
-    if (themeToSet === 'auto') {
+  const onThemeChange = (themeToSet: Theme | 'auto' | string | null) => {
+    if (themeToSet === 'auto' || themeToSet === null) {
       setTheme(null)
       setValue('auto')
-    } else {
+    } else if (themeToSet === 'light' || themeToSet === 'dark') {
       setTheme(themeToSet)
       setValue(themeToSet)
     }
