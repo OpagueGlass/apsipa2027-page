@@ -1,30 +1,31 @@
 import type { Block, Field } from 'payload'
 
 import {
+  BlockquoteFeature,
+  BlocksFeature,
+  ChecklistFeature,
+  EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
   HeadingFeature,
+  HorizontalRuleFeature,
+  IndentFeature,
+  InlineCodeFeature,
   InlineToolbarFeature,
   lexicalEditor,
-  InlineCodeFeature,
-  ParagraphFeature,
-  IndentFeature,
-  UnorderedListFeature,
   OrderedListFeature,
-  ChecklistFeature,
+  ParagraphFeature,
   RelationshipFeature,
-  BlockquoteFeature,
+  TextStateFeature,
+  UnorderedListFeature,
   UploadFeature,
-  HorizontalRuleFeature,
-  BlocksFeature,
-  EXPERIMENTAL_TableFeature,
-
 } from '@payloadcms/richtext-lexical'
 
 import { link } from '@/fields/link'
+import { textStateConfig } from '@/fields/textStateConfig'
 import { Banner } from '../Banner/config'
-import { MediaBlock } from '../MediaBlock/config'
 import { Code } from '../Code/config'
 import { GalleryBlock } from '../Gallery/config'
+import { MediaBlock } from '../MediaBlock/config'
 
 const columnFields: Field[] = [
   {
@@ -72,6 +73,9 @@ const columnFields: Field[] = [
           EXPERIMENTAL_TableFeature(),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
+          TextStateFeature({
+            state: textStateConfig,
+          }),
         ]
       },
     }),

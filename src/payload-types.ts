@@ -717,11 +717,22 @@ export interface Timeline {
     };
     [k: string]: unknown;
   } | null;
-  displayTime: 'datetime' | 'date' | 'time';
-  '24HourFormat'?: boolean | null;
   items: {
-    date: string;
-    label?: string | null;
+    eventDate: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
     description: {
       root: {
         type: string;
@@ -1273,13 +1284,10 @@ export interface GallerySelect<T extends boolean = true> {
  */
 export interface TimelineSelect<T extends boolean = true> {
   title?: T;
-  displayTime?: T;
-  '24HourFormat'?: T;
   items?:
     | T
     | {
-        date?: T;
-        label?: T;
+        eventDate?: T;
         description?: T;
         id?: T;
       };

@@ -1,18 +1,13 @@
 import type { Block, Field } from 'payload'
 
+import { GalleryBlock } from '@/blocks/Gallery/config'
+import { TimelineBlock } from '@/blocks/Timeline/config'
+import { titleRichTextField } from '@/fields/inlineRichText'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { SponsorBlock } from '../../blocks/SponsorBlock/config'
-import { GalleryBlock } from '@/blocks/Gallery/config'
-import { TimelineBlock } from '@/blocks/Timeline/config'
-import {
-    FixedToolbarFeature,
-    HeadingFeature,
-    InlineToolbarFeature,
-    lexicalEditor,
-} from '@payloadcms/richtext-lexical'
 
 const tabItems: Field[] = [
   {
@@ -44,20 +39,7 @@ export const TabBlock: Block = {
   slug: 'tabBlock',
   interfaceName: 'TabBlock',
   fields: [
-    {
-      name: 'title',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
-      }),
-    },
+    titleRichTextField,
     {
       name: 'tabs',
       type: 'array',

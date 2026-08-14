@@ -16,6 +16,7 @@ import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
+import { textStateConfig } from '@/fields/textStateConfig'
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
@@ -40,6 +41,18 @@ const montserrat = Montserrat({
   subsets: ['latin'],
 })
 
+// Lexical serializes node state under the "$" key.
+const NODE_STATE_KEY = '$'
+
+type TextStateConfig = typeof textStateConfig
+type TextStateKey = keyof TextStateConfig
+type TextStateValue<T extends TextStateKey> = keyof TextStateConfig[T]
+
+// React's style prop requires camelCase, but TextStateFeature CSS uses hyphen-case.
+function hyphenToCamel(str: string) {
+  return str.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase())
+}
+
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
   if (typeof value !== 'object') {
@@ -59,6 +72,55 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       </node.tag>
     )
   },
+  text: (args) => {
+    const { node } = args
+
+    // Apply TextStateFeature styles from the "$" key in the serialized node
+    const nodeState = node[NODE_STATE_KEY] as Record<string, string> | undefined
+
+    if (typeof defaultConverters.text !== 'function') {
+      return node.text
+    }
+
+    if (!nodeState) {
+      return defaultConverters.text(args)
+    }
+
+    const styles: React.CSSProperties = {}
+
+    const assignStyles = (css: Record<string, string>) => {
+      if (css) {
+        for (const [prop, value] of Object.entries(css)) {
+          ;(styles as Record<string, string>)[hyphenToCamel(prop)] = value
+        }
+      }
+    }
+
+    for (const [key, value] of Object.entries(nodeState)) {
+      if (key == 'text') {
+        const stateValue = value as TextStateValue<typeof key>
+        assignStyles(textStateConfig[key][stateValue].css)
+      } else if (key == 'background') {
+        const stateValue = value as TextStateValue<typeof key>
+        assignStyles(textStateConfig[key][stateValue].css)
+      }
+    }
+
+    if (Object.keys(styles).length > 0) {
+      const textNode = <span style={styles}>{node.text}</span>
+
+      return <span style={styles}>{defaultConverters.text({
+        ...args,
+        node: {
+          ...node,
+          text: textNode as unknown as string,
+        },
+      })}
+      </span>
+    }
+    return defaultConverters.text(args)
+  },
+
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
     mediaBlock: ({ node }) => (
