@@ -8,7 +8,7 @@ import type { Block, Field } from 'payload'
 
 import { link } from '@/fields/link'
 import { linkGroup } from '@/fields/linkGroup'
-import { titleRichTextField } from '@/fields/inlineRichText'
+import { titleRichTextField, inlineRichTextField } from '@/fields/inlineRichText'
 
 const itemFields: Field[] = [
   {
@@ -16,20 +16,7 @@ const itemFields: Field[] = [
     type: 'upload',
     relationTo: 'media',
   },
-  {
-    name: 'content',
-    type: 'richText',
-    editor: lexicalEditor({
-      features: ({ rootFeatures }) => {
-        return [
-          ...rootFeatures,
-          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-          FixedToolbarFeature(),
-          InlineToolbarFeature(),
-        ]
-      },
-    }),
-  },
+  inlineRichTextField({ name: 'content' }),
   linkGroup({
     overrides: {
       maxRows: 2,
