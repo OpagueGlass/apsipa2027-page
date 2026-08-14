@@ -9,6 +9,10 @@ import {
   RelationshipFeature,
   TextStateFeature,
   HeadingFeature,
+  UnorderedListFeature,
+  OrderedListFeature,
+  ChecklistFeature,
+  HorizontalRuleFeature,
 } from '@payloadcms/richtext-lexical'
 import type { Field } from 'payload'
 import { textStateConfig } from '@/fields/textStateConfig'
@@ -51,6 +55,10 @@ export const inlineRichTextField = ({
         BlockquoteFeature(),
         FixedToolbarFeature(),
         InlineToolbarFeature(),
+        UnorderedListFeature(),
+        OrderedListFeature(),
+        ChecklistFeature(),
+        HorizontalRuleFeature(),
         TextStateFeature({
           state: textStateConfig,
         }),
