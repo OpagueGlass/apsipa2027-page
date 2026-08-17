@@ -104,9 +104,15 @@ function SponsorCell({
   }
 
   const content = (
-    <div className="relative flex w-full h-full">
+    <div className="flex h-full w-full">
       {sponsor.logo ? (
-        <Media fill imgClassName="object-contain" resource={sponsor.logo} alt={sponsor.name} />
+        <Media
+          fill
+          className="relative h-full w-full"
+          imgClassName="object-contain"
+          resource={sponsor.logo}
+          alt={sponsor.name}
+        />
       ) : (
         <div className="w-full max-w-[200px] h-12 bg-muted rounded flex items-center justify-center text-muted-foreground text-sm">
           {sponsor.name}
