@@ -10,7 +10,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
   return (
     <div className="relative flex -mt-[4rem]">
       <div className="container mb-8 relative flex justify-start items-center">
-        <div className="mt-6">
+        <div className="relative mt-6">
           {richText && (
             <MediumImpactHeroRichText
               className="mb-6 text-white prose-headings:my-2 prose-headings:font-normal"

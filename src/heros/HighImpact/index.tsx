@@ -12,7 +12,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
     <div className="relative flex -mt-[4rem]">
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
       <div className="container mb-8 relative flex justify-start items-center">
-        <div className="max-w-[36.5rem]">
+        <div className="relative max-w-[36.5rem]">
           {richText && (
             <HighImpactHeroRichText
               className="mb-8 text-white"

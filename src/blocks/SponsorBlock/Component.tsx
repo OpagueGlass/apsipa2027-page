@@ -34,7 +34,7 @@ const tierConfig: Record<Tiers, SponsorTierConfig> = {
     badge: <Crown className="h-3 w-3 fill-current" aria-hidden="true" />,
     logoSize: 'h-32',
     gridCols: 'grid-cols-1',
-    cellPadding: 'p-[48px] lg:p-[64px]',
+    cellPadding: 'p-[32px] lg:p-[64px]',
     cellMaxHeight: 'h-[240px]',
   },
   gold: {
@@ -104,7 +104,7 @@ function SponsorCell({
   }
 
   const content = (
-    <div className="flex relative w-full h-full">
+    <div className="relative flex w-full h-full">
       {sponsor.logo ? (
         <Media fill imgClassName="object-contain" resource={sponsor.logo} alt={sponsor.name} />
       ) : (
