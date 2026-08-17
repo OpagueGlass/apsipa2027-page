@@ -34,7 +34,7 @@ const tierConfig: Record<Tiers, SponsorTierConfig> = {
     badge: <Crown className="h-3 w-3 fill-current" aria-hidden="true" />,
     logoSize: 'h-32',
     gridCols: 'grid-cols-1',
-    cellPadding: 'p-[24px] lg:p-[64px]',
+    cellPadding: 'p-[48px] lg:p-[64px]',
     cellMaxHeight: 'h-[240px]',
   },
   gold: {
@@ -49,7 +49,7 @@ const tierConfig: Record<Tiers, SponsorTierConfig> = {
     ),
     logoSize: 'h-24',
     gridCols: 'grid-cols-1 lg:grid-cols-2',
-    cellPadding: 'p-[32px]',
+    cellPadding: 'p-[48px]',
     cellMaxHeight: 'h-[200px]',
   },
   silver: {
@@ -63,7 +63,7 @@ const tierConfig: Record<Tiers, SponsorTierConfig> = {
       </svg>
     ),
     logoSize: 'h-16',
-    gridCols: 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4',
+    gridCols: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
     cellPadding: 'p-[24px]',
     cellMaxHeight: 'h-[180px]',
   },
@@ -104,9 +104,9 @@ function SponsorCell({
   }
 
   const content = (
-    <div>
+    <div className="flex relative w-full h-full">
       {sponsor.logo ? (
-        <Media resource={sponsor.logo} alt={sponsor.name} />
+        <Media fill imgClassName="object-contain" resource={sponsor.logo} alt={sponsor.name} />
       ) : (
         <div className="w-full max-w-[200px] h-12 bg-muted rounded flex items-center justify-center text-muted-foreground text-sm">
           {sponsor.name}
