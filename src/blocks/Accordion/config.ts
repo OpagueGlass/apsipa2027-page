@@ -11,7 +11,7 @@ export const Accordion: Block = {
       type: 'checkbox',
       defaultValue: true,
       admin: {
-        description: 'Show multiple items at the same time.',
+        description: 'Show multiple answers at the same time',
       },
     },
     {

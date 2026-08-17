@@ -932,7 +932,7 @@ export interface AccordionBlock {
     [k: string]: unknown;
   } | null;
   /**
-   * Show multiple items at the same time.
+   * Show multiple answers at the same time
    */
   allowMultipleOpen?: boolean | null;
   items: {
