@@ -6,7 +6,12 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { MediumImpactHeroRichText } from '@/components/RichText'
 
-export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+export const MediumImpactHero: React.FC<Page['hero']> = ({
+  links,
+  media,
+  richText,
+  shadeMedia,
+}) => {
   return (
     <div className="relative -mt-[4rem] min-h-[50vh]">
       {media && typeof media === 'object' && (
@@ -17,6 +22,9 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
           priority
           resource={media}
         />
+      )}
+      {shadeMedia && (
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
       )}
       <div className="container relative z-10 mb-8 flex min-h-[50vh] items-center justify-start">
         <div className="mt-6">

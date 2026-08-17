@@ -189,6 +189,7 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    shadeMedia?: boolean | null;
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock | TabBlock)[];
   meta?: {
@@ -1175,6 +1176,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        shadeMedia?: T;
       };
   layout?:
     | T

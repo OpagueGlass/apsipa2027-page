@@ -7,7 +7,7 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { HighImpactHeroRichText } from '@/components/RichText'
 
-export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText, shadeMedia }) => {
   return (
     <div className="relative -mt-[4rem] min-h-[80vh]">
       {media && typeof media === 'object' && (
@@ -19,7 +19,9 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           resource={media}
         />
       )}
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+      {shadeMedia && (
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+      )}
       <div className="container relative z-10 mb-8 flex min-h-[80vh] items-center justify-start">
         <div className="relative max-w-[36.5rem]">
           {richText && (
