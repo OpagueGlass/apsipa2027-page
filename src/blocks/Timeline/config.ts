@@ -2,7 +2,7 @@ import { inlineRichTextField, titleRichTextField } from '@/fields/inlineRichText
 import type { Block, Field } from 'payload'
 
 const itemFields: Field[] = [
-  inlineRichTextField({ name: 'eventDate', required: true, label: 'Date' }),
+  inlineRichTextField({ name: 'eventTime', required: true, label: 'time' }),
   inlineRichTextField({ name: 'description', required: true, label: 'Description' }),
 ]
 

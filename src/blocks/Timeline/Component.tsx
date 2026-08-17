@@ -29,7 +29,7 @@ export const Timeline: React.FC<TimelineProps> = (props) => {
                   {/* Content */}
                   <div className="flex-1">
                     <RichText
-                      data={item.eventDate}
+                      data={item.eventTime}
                       enableGutter={false}
                       className="prose-sm font-semibold"
                     />
