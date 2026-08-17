@@ -888,6 +888,7 @@ export interface TabBlock {
     };
     [k: string]: unknown;
   } | null;
+  isLineVariant?: boolean | null;
   tabs: {
     label: string;
     layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock)[];
@@ -1430,6 +1431,7 @@ export interface SponsorBlockSelect<T extends boolean = true> {
  */
 export interface TabBlockSelect<T extends boolean = true> {
   title?: T;
+  isLineVariant?: T;
   tabs?:
     | T
     | {

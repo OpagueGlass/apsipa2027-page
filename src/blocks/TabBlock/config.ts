@@ -41,6 +41,11 @@ export const TabBlock: Block = {
   fields: [
     titleRichTextField,
     {
+      name: "isLineVariant",
+      type: "checkbox",
+      label: "Use line style",
+    },
+    {
       name: 'tabs',
       type: 'array',
       required: true,
