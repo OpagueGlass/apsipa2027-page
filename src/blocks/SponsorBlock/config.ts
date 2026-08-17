@@ -33,6 +33,14 @@ export const SponsorBlock: Block = {
   fields: [
     titleRichTextField,
     {
+      name: 'platinumSponsors',
+      type: 'array',
+      admin: {
+        initCollapsed: true,
+      },
+      fields: itemFields,
+    },
+    {
       name: 'goldSponsors',
       type: 'array',
       admin: {
@@ -50,6 +58,14 @@ export const SponsorBlock: Block = {
     },
     {
       name: 'bronzeSponsors',
+      type: 'array',
+      admin: {
+        initCollapsed: true,
+      },
+      fields: itemFields,
+    },
+    {
+      name: 'supportedBy',
       type: 'array',
       admin: {
         initCollapsed: true,

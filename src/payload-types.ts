@@ -774,6 +774,24 @@ export interface SponsorBlock {
     };
     [k: string]: unknown;
   } | null;
+  platinumSponsors?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
   goldSponsors?:
     | {
         name: string;
@@ -811,6 +829,24 @@ export interface SponsorBlock {
       }[]
     | null;
   bronzeSponsors?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  supportedBy?:
     | {
         name: string;
         logo: number | Media;
@@ -1300,6 +1336,23 @@ export interface TimelineSelect<T extends boolean = true> {
  */
 export interface SponsorBlockSelect<T extends boolean = true> {
   title?: T;
+  platinumSponsors?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   goldSponsors?:
     | T
     | {
@@ -1335,6 +1388,23 @@ export interface SponsorBlockSelect<T extends boolean = true> {
         id?: T;
       };
   bronzeSponsors?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  supportedBy?:
     | T
     | {
         name?: T;
