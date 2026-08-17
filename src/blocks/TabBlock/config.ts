@@ -8,6 +8,7 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { SponsorBlock } from '../../blocks/SponsorBlock/config'
+import { Accordion } from '../Accordion/config'
 
 const tabItems: Field[] = [
   {
@@ -20,6 +21,7 @@ const tabItems: Field[] = [
     type: 'blocks',
     // Edit Block Types here to add new blocks to the admin page tab block options
     blocks: [
+      Accordion,
       CallToAction,
       Content,
       MediaBlock,
