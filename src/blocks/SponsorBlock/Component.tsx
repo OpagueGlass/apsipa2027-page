@@ -197,7 +197,7 @@ function SupportedByCard({ supporters }: { supporters: Sponsors }) {
   }
 
   return (
-    <div className="relative overflow-hidden rounded-sm rounded-r-2xl bg-background shadow-sm border border-border">
+    <div className="relative overflow-hidden rounded-lg bg-background shadow-sm border border-border">
       <div className="bg-background">
         {/* Header */}
         <div className="px-4 pt-3 pb-2 border-b flex items-center justify-center gap-2">
