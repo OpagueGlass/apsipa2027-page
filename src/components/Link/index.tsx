@@ -2,11 +2,11 @@ import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
-import type { VariantProps } from "class-variance-authority";
+import type { VariantProps } from 'class-variance-authority'
 
 import type { Page } from '@/payload-types'
 
-type ButtonProps = VariantProps<typeof  buttonVariants>;
+type ButtonProps = VariantProps<typeof buttonVariants>
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -21,6 +21,7 @@ type CMSLinkType = {
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
+  onClick?: () => void
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -34,6 +35,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
+    onClick,
   } = props
 
   const href =
@@ -58,7 +60,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   }
 
   return (
-    <Button className={className} size={sizeFromProps} variant={appearance}>
+    <Button className={className} size={sizeFromProps} variant={appearance} onClick={onClick}>
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
         {label && label}
         {children && children}

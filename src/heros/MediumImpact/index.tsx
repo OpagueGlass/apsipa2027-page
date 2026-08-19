@@ -4,12 +4,29 @@ import type { Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import {MediumImpactHeroRichText}from '@/components/RichText'
+import { MediumImpactHeroRichText } from '@/components/RichText'
 
-export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+export const MediumImpactHero: React.FC<Page['hero']> = ({
+  links,
+  media,
+  richText,
+  shadeMedia,
+}) => {
   return (
-    <div className="relative flex -mt-[4rem]">
-      <div className="container mb-8 relative flex justify-start items-center">
+    <div className="relative -mt-[4rem] min-h-[50vh]">
+      {media && typeof media === 'object' && (
+        <Media
+          fill
+          className="absolute inset-0 z-0"
+          imgClassName="h-full w-full object-cover"
+          priority
+          resource={media}
+        />
+      )}
+      {shadeMedia && (
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+      )}
+      <div className="container relative z-10 mb-8 flex min-h-[50vh] items-center justify-start">
         <div className="mt-6">
           {richText && (
             <MediumImpactHeroRichText
@@ -30,11 +47,6 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
             </ul>
           )}
         </div>
-      </div>
-      <div className="min-h-[50vh] select-none">
-        {media && typeof media === 'object' && (
-          <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
-        )}
       </div>
     </div>
   )

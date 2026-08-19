@@ -28,9 +28,11 @@ const navigationBlockComponents = {
   navigationItem: NavigationItemBlock,
 }
 
-const sheetBlockComponents = {
-  navigationGroup: SheetNavigationGroupBlock,
-  navigationItem: SheetNavigationItemBlock,
+const sheetBlockComponents = (setSheetOpen: (open: boolean) => void) => {
+  return {
+    navigationGroup: SheetNavigationGroupBlock({ setSheetOpen }),
+    navigationItem: SheetNavigationItemBlock({ setSheetOpen }),
+  }
 }
 
 const renderBlock =
@@ -93,38 +95,62 @@ function NavigationItemBlock({ link }: NavigationItemProps) {
   )
 }
 
-function SheetNavItem({ link, className }: { link: NavigationLinkProps; className?: string }) {
-  return <CMSLink appearance="ghost" {...link} className={cn('w-full text-start py-1.5', className)} />
-}
-
-function SheetNavigationGroupBlock({ groupName, links }: NavigationGroupProps) {
-  const [open, setOpen] = useState(false)
-
+function SheetNavItem({
+  link,
+  setSheetOpen,
+  className,
+}: {
+  link: NavigationLinkProps
+  setSheetOpen: (open: boolean) => void
+  className?: string
+}) {
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger
-        render={
-          <Button variant="ghost" className="w-full data-panel-open:bg-muted/50 data-panel-open:hover:bg-muted data-panel-open:focus:bg-muted">
-            {groupName}
-            <ChevronDownIcon className="ml-auto size-3 transition duration-300 group-data-panel-open/button:rotate-180" />
-          </Button>
-        }
-      />
-      <CollapsibleContent className="mt-1 space-y-1">
-        {links?.map(({ link }, index) => (
-          <SheetNavItem key={index} link={link} className="px-2.5" />
-        ))}
-      </CollapsibleContent>
-    </Collapsible>
+    <CMSLink
+      appearance="ghost"
+      {...link}
+      className={cn('w-full text-start py-1.5', className)}
+      onClick={() => setSheetOpen(false)}
+    />
   )
 }
 
-function SheetNavigationItemBlock({ link }: NavigationItemProps) {
-  return <SheetNavItem link={link} />
+function SheetNavigationGroupBlock({ setSheetOpen }: { setSheetOpen: (open: boolean) => void }) {
+  return ({ groupName, links }: NavigationGroupProps) => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <CollapsibleTrigger
+          render={
+            <Button
+              variant="ghost"
+              className="w-full data-panel-open:bg-muted/50 data-panel-open:hover:bg-muted data-panel-open:focus:bg-muted"
+            >
+              {groupName}
+              <ChevronDownIcon className="ml-auto size-3 transition duration-300 group-data-panel-open/button:rotate-180" />
+            </Button>
+          }
+        />
+        <CollapsibleContent className="mt-1 space-y-1">
+          {links?.map(({ link }, index) => (
+            <SheetNavItem key={index} link={link} setSheetOpen={setSheetOpen} className="px-2.5" />
+          ))}
+        </CollapsibleContent>
+      </Collapsible>
+    )
+  }
+}
+
+function SheetNavigationItemBlock({ setSheetOpen }: { setSheetOpen: (open: boolean) => void }) {
+  return ({ link }: NavigationItemProps) => {
+    return <SheetNavItem link={link} setSheetOpen={setSheetOpen} />
+  }
 }
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const { navigationBlocks } = data
+
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   const hasBlocks =
     navigationBlocks && Array.isArray(navigationBlocks) && navigationBlocks.length > 0
@@ -140,12 +166,12 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           </NavigationMenu>
         </nav>
         <div className="lg:hidden">
-          <Sheet>
-            <SheetTrigger>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger onClick={() => setSheetOpen(true)}>
               <Menu className="h-5 w-5 mr-2" />
             </SheetTrigger>
             <SheetContent className="overflow-y-auto no-scrollbar w-[300px] sm:w-[400px] pt-20 px-4 gap-2">
-              {navigationBlocks.map(renderBlock(sheetBlockComponents))}
+              {navigationBlocks.map(renderBlock(sheetBlockComponents(setSheetOpen)))}
             </SheetContent>
           </Sheet>
         </div>

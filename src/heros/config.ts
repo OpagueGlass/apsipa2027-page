@@ -65,6 +65,13 @@ export const hero: Field = {
       },
       relationTo: 'media',
     },
+    {
+      name: "shadeMedia",
+      type: "checkbox",
+      admin: {
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+      },
+    }
   ],
   label: false,
 }

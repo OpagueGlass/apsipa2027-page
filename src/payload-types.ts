@@ -189,8 +189,19 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    shadeMedia?: boolean | null;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock | TabBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | FormBlock
+    | Gallery
+    | Timeline
+    | SponsorBlock
+    | TabBlock
+    | AccordionBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -718,7 +729,7 @@ export interface Timeline {
     [k: string]: unknown;
   } | null;
   items: {
-    eventDate: {
+    eventTime: {
       root: {
         type: string;
         children: {
@@ -774,6 +785,24 @@ export interface SponsorBlock {
     };
     [k: string]: unknown;
   } | null;
+  platinumSponsors?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
   goldSponsors?:
     | {
         name: string;
@@ -828,6 +857,24 @@ export interface SponsorBlock {
         id?: string | null;
       }[]
     | null;
+  supportedBy?:
+    | {
+        name: string;
+        logo: number | Media;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'sponsor';
@@ -852,14 +899,64 @@ export interface TabBlock {
     };
     [k: string]: unknown;
   } | null;
+  isLineVariant?: boolean | null;
   tabs: {
     label: string;
-    layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock)[];
+    layout: (
+      AccordionBlock | CallToActionBlock | ContentBlock | MediaBlock | FormBlock | Gallery | Timeline | SponsorBlock
+    )[];
     id?: string | null;
   }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock".
+ */
+export interface AccordionBlock {
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Show multiple answers at the same time
+   */
+  allowMultipleOpen?: boolean | null;
+  items: {
+    question: string;
+    answer: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'accordion';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1138,6 +1235,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        shadeMedia?: T;
       };
   layout?:
     | T
@@ -1150,6 +1248,7 @@ export interface PagesSelect<T extends boolean = true> {
         timeline?: T | TimelineSelect<T>;
         sponsor?: T | SponsorBlockSelect<T>;
         tabBlock?: T | TabBlockSelect<T>;
+        accordion?: T | AccordionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1287,7 +1386,7 @@ export interface TimelineSelect<T extends boolean = true> {
   items?:
     | T
     | {
-        eventDate?: T;
+        eventTime?: T;
         description?: T;
         id?: T;
       };
@@ -1300,6 +1399,23 @@ export interface TimelineSelect<T extends boolean = true> {
  */
 export interface SponsorBlockSelect<T extends boolean = true> {
   title?: T;
+  platinumSponsors?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   goldSponsors?:
     | T
     | {
@@ -1351,6 +1467,23 @@ export interface SponsorBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  supportedBy?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1360,6 +1493,7 @@ export interface SponsorBlockSelect<T extends boolean = true> {
  */
 export interface TabBlockSelect<T extends boolean = true> {
   title?: T;
+  isLineVariant?: T;
   tabs?:
     | T
     | {
@@ -1367,6 +1501,7 @@ export interface TabBlockSelect<T extends boolean = true> {
         layout?:
           | T
           | {
+              accordion?: T | AccordionBlockSelect<T>;
               cta?: T | CallToActionBlockSelect<T>;
               content?: T | ContentBlockSelect<T>;
               mediaBlock?: T | MediaBlockSelect<T>;
@@ -1375,6 +1510,23 @@ export interface TabBlockSelect<T extends boolean = true> {
               timeline?: T | TimelineSelect<T>;
               sponsor?: T | SponsorBlockSelect<T>;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock_select".
+ */
+export interface AccordionBlockSelect<T extends boolean = true> {
+  title?: T;
+  allowMultipleOpen?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
         id?: T;
       };
   id?: T;

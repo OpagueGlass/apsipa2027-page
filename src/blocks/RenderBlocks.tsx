@@ -10,10 +10,12 @@ import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { SponsorBlock } from '@/blocks/SponsorBlock/Component'
 import { Timeline } from './Timeline/Component'
 import { TabBlock } from './TabBlock/Component'
+import { AccordionBlock } from './Accordion/Component'
 
 // Edit Block Components here to add new blocks to the page builder
 const blockComponents = {
   // archive: ArchiveBlock,
+  accordion: AccordionBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
