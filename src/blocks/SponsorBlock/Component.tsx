@@ -206,7 +206,7 @@ function SupportedByCard({ supporters }: { supporters: Sponsors }) {
 
         {/* Supporter grid */}
         <div className="items-stretch justify-center -mr-px -mb-px">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-x divide-y">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 divide-x divide-y">
             {supporters.map((supporter, index) => (
               <SponsorCell
                 key={index}
@@ -226,15 +226,25 @@ export const SponsorBlock: React.FC<SponsorBlockProps> = (props) => {
   const { title, platinumSponsors, goldSponsors, silverSponsors, bronzeSponsors, supportedBy } =
     props
 
+  const hasTierSponsor = (sponsor: Sponsors | null | undefined) => sponsor && sponsor.length > 0
+
+  const hasSponsor =
+    hasTierSponsor(platinumSponsors) ||
+    hasTierSponsor(goldSponsors) ||
+    hasTierSponsor(silverSponsors) ||
+    hasTierSponsor(bronzeSponsors)
+
   return (
     <div className="container">
       {hasText(title) && <RichText data={title} enableGutter={false} className="mb-8" />}
-      <div className="space-y-6 mb-12">
-        <SponsorTier tier="platinum" sponsors={platinumSponsors} />
-        <SponsorTier tier="gold" sponsors={goldSponsors} />
-        <SponsorTier tier="silver" sponsors={silverSponsors} />
-        <SponsorTier tier="bronze" sponsors={bronzeSponsors} />
-      </div>
+      {hasSponsor && (
+        <div className="space-y-6 mb-12">
+          <SponsorTier tier="platinum" sponsors={platinumSponsors} />
+          <SponsorTier tier="gold" sponsors={goldSponsors} />
+          <SponsorTier tier="silver" sponsors={silverSponsors} />
+          <SponsorTier tier="bronze" sponsors={bronzeSponsors} />
+        </div>
+      )}
       <SupportedByCard supporters={supportedBy} />
     </div>
   )
