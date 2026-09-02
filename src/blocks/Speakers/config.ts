@@ -1,47 +1,32 @@
 import type { Block, Field } from 'payload'
 
-import { inlineRichTextField, titleRichTextField } from '@/fields/inlineRichText'
+import { titleRichTextField } from '@/fields/inlineRichText'
 import { link } from '@/fields/link'
-import { linkGroup } from '@/fields/linkGroup'
 
 const itemFields: Field[] = [
   {
     name: 'media',
     type: 'upload',
     relationTo: 'media',
+    required: true,
   },
-  inlineRichTextField({ name: 'content' }),
-  linkGroup({
-    overrides: {
-      maxRows: 2,
-    },
-  }),
+  {
+    name: 'name',
+    type: 'text',
+    required: true,
+  },
+  {
+    name: 'title',
+    type: 'text',
+    required: true,
+  },
 ]
 
-export const GalleryBlock: Block = {
-  slug: 'gallery',
-  interfaceName: 'Gallery',
+export const Speaker: Block = {
+  slug: 'speakersBlock',
+  interfaceName: 'speakersCarousel',
   fields: [
     titleRichTextField,
-    {
-      name: 'columns',
-      type: 'select',
-      defaultValue: 'three',
-      options: [
-        {
-          label: 'One',
-          value: 'one',
-        },
-        {
-          label: 'Two',
-          value: 'two',
-        },
-        {
-          label: 'Three',
-          value: 'three',
-        },
-      ],
-    },
     {
       name: 'enableLink',
       type: 'checkbox',

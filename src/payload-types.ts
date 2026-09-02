@@ -188,7 +188,13 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    useCameraRoll?: boolean | null;
     media?: (number | null) | Media;
+    cameraRollMedia?: (number | Media)[] | null;
+    /**
+     * Duration to show each image in seconds
+     */
+    cameraRollDuration?: number | null;
     shadeMedia?: boolean | null;
   };
   layout: (
@@ -201,6 +207,7 @@ export interface Page {
     | SponsorBlock
     | TabBlock
     | AccordionBlock
+    | SpeakersCarousel
   )[];
   meta?: {
     title?: string | null;
@@ -960,6 +967,53 @@ export interface AccordionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speakersCarousel".
+ */
+export interface SpeakersCarousel {
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  enableLink?: boolean | null;
+  link?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline') | null;
+  };
+  items?:
+    | {
+        media: number | Media;
+        name: string;
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'speakersBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -1234,7 +1288,10 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        useCameraRoll?: T;
         media?: T;
+        cameraRollMedia?: T;
+        cameraRollDuration?: T;
         shadeMedia?: T;
       };
   layout?:
@@ -1249,6 +1306,7 @@ export interface PagesSelect<T extends boolean = true> {
         sponsor?: T | SponsorBlockSelect<T>;
         tabBlock?: T | TabBlockSelect<T>;
         accordion?: T | AccordionBlockSelect<T>;
+        speakersBlock?: T | SpeakersCarouselSelect<T>;
       };
   meta?:
     | T
@@ -1527,6 +1585,34 @@ export interface AccordionBlockSelect<T extends boolean = true> {
     | {
         question?: T;
         answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speakersCarousel_select".
+ */
+export interface SpeakersCarouselSelect<T extends boolean = true> {
+  title?: T;
+  enableLink?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  items?:
+    | T
+    | {
+        media?: T;
+        name?: T;
+        title?: T;
         id?: T;
       };
   id?: T;
