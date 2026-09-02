@@ -11,6 +11,7 @@ import { SponsorBlock } from '@/blocks/SponsorBlock/Component'
 import { Timeline } from './Timeline/Component'
 import { TabBlock } from './TabBlock/Component'
 import { AccordionBlock } from './Accordion/Component'
+import { SpeakersCarouselBlock } from './Speakers/Component'
 
 // Edit Block Components here to add new blocks to the page builder
 const blockComponents = {
@@ -23,7 +24,8 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   gallery: GalleryBlock,
   timeline: Timeline,
-  tabBlock: TabBlock
+  tabBlock: TabBlock,
+  speakersBlock: SpeakersCarouselBlock,
 }
 
 export const RenderBlocks: React.FC<{

@@ -52,7 +52,7 @@ export const GalleryBlock: React.FC<Props> = (props) => {
                 <CardContent className="px-0">
                   {media && (
                     <Media
-                      imgClassName={cn('aspect-video h-80 object-cover min-w-56')}
+                      imgClassName={cn('aspect-video h-80 rounded-t-xl object-cover')}
                       resource={media}
                       pictureClassName={cn('m-0')}
                     />
