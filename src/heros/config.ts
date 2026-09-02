@@ -1,13 +1,6 @@
-import type { Field } from 'payload'
-
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-
 import { linkGroup } from '@/fields/linkGroup'
+import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import type { Field } from 'payload'
 
 export const hero: Field = {
   name: 'hero',
@@ -58,20 +51,46 @@ export const hero: Field = {
       },
     }),
     {
+      name: 'useCameraRoll',
+      type: 'checkbox',
+      label: 'Use Camera Roll (Loop Images)',
+      admin: {
+        condition: (_, { type } = {}) => type === 'highImpact',
+      },
+    },
+    {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type, useCameraRoll } = {}) =>
+          ['highImpact', 'mediumImpact'].includes(type) && !useCameraRoll,
       },
       relationTo: 'media',
     },
     {
-      name: "shadeMedia",
-      type: "checkbox",
+      name: 'cameraRollMedia',
+      type: 'upload',
+      hasMany: true,
+      label: 'Camera Roll Images',
+      admin: { condition: (_, { useCameraRoll } = {}) => useCameraRoll },
+      relationTo: 'media',
+    },
+    {
+      name: 'cameraRollDuration',
+      type: 'number',
+      defaultValue: 5,
+      admin: {
+        condition: (_, { useCameraRoll } = {}) => useCameraRoll,
+        description: 'Duration to show each image in seconds',
+      },
+    },
+    {
+      name: 'shadeMedia',
+      type: 'checkbox',
       admin: {
         condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
       },
-    }
+    },
   ],
   label: false,
 }

@@ -188,7 +188,13 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    useCameraRoll?: boolean | null;
     media?: (number | null) | Media;
+    cameraRollMedia?: (number | Media)[] | null;
+    /**
+     * Duration to show each image in seconds
+     */
+    cameraRollDuration?: number | null;
     shadeMedia?: boolean | null;
   };
   layout: (
@@ -1282,7 +1288,10 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        useCameraRoll?: T;
         media?: T;
+        cameraRollMedia?: T;
+        cameraRollDuration?: T;
         shadeMedia?: T;
       };
   layout?:
